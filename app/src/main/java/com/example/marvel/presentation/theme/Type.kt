@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.sp
 import com.example.marvel.R
 
 val mainFont: FontFamily =
-    FontFamily(Font(resId = R.font.akzidenzgroteskpro_regular))
+    FontFamily(Font(resId = R.font.inter_bold, weight = FontWeight.Bold))
 
 val Typography = Typography(
     headlineLarge = TextStyle(

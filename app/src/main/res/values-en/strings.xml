@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Marvel</string>
+    <string name="marvel_logo">logo marvel</string>
+    <string name="header_str">Choose your hero</string>
+
+    <string name="icon_man_name">Железный человек</string>
+    <string name="icon_man_quote">Я Железный человек</string>
+
+    <string name="deadpool_name">Дэдпул</string>
+    <string name="deadpool_quote">Please don’t make the super suit green...or animated!</string>
+
+    <string name="spider_man_name">Spider Man</string>
+    <string name="spider_man_quote">In iron suit</string>
+</resources>

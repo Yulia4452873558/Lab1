@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">Marvel</string>
+    <string name="app_name">Марвел</string>
+    <string name="marvel_logo">логотип марвела</string>
+    <string name="header_str">Выбери своего героя</string>
+
+
+    <string name="icon_man_name">Железный человек</string>
+    <string name="icon_man_quote">Я Железный человек</string>
+
+    <string name="deadpool_name">Дэдпул</string>
+    <string name="deadpool_quote">Пожалуйста, не делайте суперкостюм зеленым... или анимированным!</string>
+
+    <string name="spider_man_name">Человек-паук</string>
+    <string name="spider_man_quote">В железном костюме</string>
+    <string name="hero_image">изображение героя</string>
+
+    <string name="back_button">Иконка стрелки назад</string>
+    <string name="hero_back">задний фон героя</string>
 </resources>

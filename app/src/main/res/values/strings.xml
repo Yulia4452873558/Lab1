@@ -12,4 +12,8 @@
 
     <string name="spider_man_name">Человек-паук</string>
     <string name="spider_man_quote">В железном костюме</string>
+    <string name="hero_image">изображение героя</string>
+
+    <string name="back_button">Иконка стрелки назад</string>
+    <string name="hero_back">задний фон героя</string>
 </resources>

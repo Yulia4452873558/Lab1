@@ -1,6 +1,6 @@
 package com.example.marvel.presentation
 
-sealed class Screens(val route: String) {
-    data object Start : Screens("hero_screen")
-    data object FullCard : Screens("card_screen")
+object Screens {
+    const val START_SCREEN = "START_SCREEN "
+    const val FULL_SCREEN= "FULL_SCREEN"
 }

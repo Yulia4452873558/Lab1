@@ -12,4 +12,8 @@
 
     <string name="spider_man_name">Spider Man</string>
     <string name="spider_man_quote">In iron suit</string>
+    <string name="hero_image">Hero Image</string>
+
+    <string name="back_button">Back arrow icon</string>
+    <string name="hero_back">hero background</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.marvel.presentation.screens.full
+package com.example.marvel.presentation.screens.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,23 +24,25 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.marvel.R
 import com.example.marvel.mock.getMockHeroes
-import com.example.marvel.model.Hero
+import com.example.marvel.domain.model.Hero
+import com.example.marvel.presentation.screens.start.StartViewModel
 import com.example.marvel.presentation.theme.MarvelTheme
 import com.example.marvel.presentation.theme.Spaces
 
 @Composable
-fun HeroPage(item: Hero, onBackClick: () -> Unit) {
+fun MainScreen(item: Hero, onBackClick: () -> Unit) {
+    val viewModel = viewModel<StartViewModel>()
+
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = item.heroImageResId,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-            contentDescription = "${stringResource(id = R.string.hero_image)} ${
-                stringResource(id = item.heroNameResId)
-            }"
+            contentDescription = stringResource(id = R.string.hero_image)
         )
         IconButton(
             modifier = Modifier
@@ -67,14 +69,14 @@ fun HeroPage(item: Hero, onBackClick: () -> Unit) {
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = stringResource(id = item.heroNameResId),
+                text = item.heroNameResId,
                 style = MaterialTheme.typography.titleMedium.copy(
                     color = MaterialTheme.colorScheme.onBackground
                 ),
                 textAlign = TextAlign.Start
             )
             Text(
-                text = stringResource(id = item.heroDescriptionResId),
+                text = item.heroDescriptionResId,
                 style = MaterialTheme.typography.labelLarge.copy(
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Start
@@ -90,7 +92,7 @@ fun HeroPage(item: Hero, onBackClick: () -> Unit) {
 private fun HeroPage_() {
     MarvelTheme() {
         Surface {
-            HeroPage(item = getMockHeroes()[0], {})
+            MainScreen(item = getMockHeroes()[0], {})
         }
     }
 }

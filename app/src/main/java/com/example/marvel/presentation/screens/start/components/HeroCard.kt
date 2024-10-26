@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.example.marvel.R
 import com.example.marvel.mock.getMockHeroes
-import com.example.marvel.model.Hero
+import com.example.marvel.domain.model.Hero
 import com.example.marvel.presentation.theme.MarvelTheme
 import com.example.marvel.presentation.theme.Sizes
 import com.example.marvel.presentation.theme.Spaces
@@ -46,16 +46,14 @@ fun HeroCard(item: Hero, onHeroClick: (Hero) -> Unit = {}) {
                     .align(Alignment.Center)
                     .background(MaterialTheme.colorScheme.onBackground),
                 contentScale = ContentScale.Crop,
-                contentDescription = "${stringResource(id = R.string.hero_image)} ${
-                    stringResource(id = item.heroNameResId)
-                }"
+                contentDescription = stringResource(id = R.string.hero_image)
             )
             Text(
                 modifier = Modifier
                     .wrapContentSize()
                     .align(alignment = Alignment.BottomStart)
                     .padding(all = Spaces.heroNamePadding),
-                text = stringResource(id = item.heroNameResId),
+                text = item.heroNameResId,
                 style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
             )
         }

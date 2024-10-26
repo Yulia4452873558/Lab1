@@ -22,7 +22,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.marvel.mock.getMockHeroes
-import com.example.marvel.model.Hero
+import com.example.marvel.domain.model.Hero
 import com.example.marvel.presentation.theme.MarvelTheme
 import com.example.marvel.presentation.theme.Spaces
 

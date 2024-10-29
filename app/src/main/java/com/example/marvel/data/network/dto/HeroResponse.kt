@@ -2,7 +2,7 @@ package com.example.marvel.data.network.dto
 
 import com.squareup.moshi.Json
 
-data class CharacterRoot(
+data class HeroResponse(
     @Json(name = "code") var code: Int? = null,
     @Json(name = "status") var status: String? = null,
     @Json(name = "copyright") var copyright: String? = null,

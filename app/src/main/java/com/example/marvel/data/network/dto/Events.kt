@@ -1,9 +1,8 @@
-package com.example.marvel.data.network.characters
+package com.example.marvel.data.network.dto
 
-import com.example.marvel.data.network.characters.Items
 import com.squareup.moshi.Json
 
-data class Series(
+data class Events(
     @Json(name = "available") var available: Int? = null,
     @Json(name = "collectionURI") var collectionURI: String? = null,
     @Json(name = "items") var items: List<Items> = listOf(),

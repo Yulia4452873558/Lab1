@@ -1,7 +1,7 @@
 package com.example.marvel.data.network.api
 
 import com.example.marvel.data.constant.ApiConstants
-import com.example.marvel.data.network.characters.CharacterRoot
+import com.example.marvel.data.network.dto.HeroResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,7 +14,7 @@ interface MarvelApi {
         @Query("apikey") apiKey: String = ApiConstants.PUBLIC_API_KEY,
         @Query("ts") timeStamp: String = ApiConstants.TIMESTAMP,
         @Query("hash") hash: String = ApiConstants.generateHash(),
-    ): CharacterRoot
+    ): HeroResponse
 
 
     @GET("characters/{id}")
@@ -23,5 +23,5 @@ interface MarvelApi {
         @Query("apikey") apiKey: String = ApiConstants.PUBLIC_API_KEY,
         @Query("ts") timeStamp: String = ApiConstants.TIMESTAMP,
         @Query("hash") hash: String = ApiConstants.generateHash(),
-    ): CharacterRoot
+    ): HeroResponse
 }

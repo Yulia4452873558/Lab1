@@ -1,9 +1,9 @@
 package com.example.marvel.data.network.repository
 
-import com.example.marvel.data.network.characters.CharacterRoot
+import com.example.marvel.data.network.dto.HeroResponse
 
 interface HeroRepository {
-    suspend fun getHeroById(id: String): CharacterRoot
+    suspend fun getHeroById(id: String): HeroResponse
 
-    suspend fun getAllHeroes(): CharacterRoot
+    suspend fun getAllHeroes(): HeroResponse
 }

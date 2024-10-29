@@ -1,6 +1,5 @@
-package com.example.marvel.data.network.characters
+package com.example.marvel.data.network.dto
 
-import com.example.marvel.data.network.characters.Data
 import com.squareup.moshi.Json
 
 data class CharacterRoot(

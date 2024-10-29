@@ -1,4 +1,4 @@
-package com.example.marvel.data.network.characters
+package com.example.marvel.data.network.dto
 
 import com.squareup.moshi.Json
 

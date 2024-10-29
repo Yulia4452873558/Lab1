@@ -2,7 +2,6 @@ package com.example.marvel.mock
 
 import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color
-import com.example.marvel.R
 import com.example.marvel.domain.model.Hero
 
 @SuppressLint("SuspiciousIndentation")

@@ -2,9 +2,6 @@ package com.example.marvel.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable

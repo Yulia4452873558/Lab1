@@ -1,10 +1,8 @@
 package com.example.marvel.data.network.api
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 
-//@JsonClass(generateAdapter = true)
 data class HeroResponse(
     @Json(name = "code")
     val code: Int,
@@ -12,13 +10,11 @@ data class HeroResponse(
     val data: Data,
 ) {
 
-//    @JsonClass(generateAdapter = true)
     data class Data(
         @Json(name = "results")
         val results: List<Superhero>,
     )
 
-//    @JsonClass(generateAdapter = true)
     data class Superhero(
         @Json(name = "id")
         val id: String,
@@ -30,7 +26,6 @@ data class HeroResponse(
         val image: Image,
     ) {
 
-//        @JsonClass(generateAdapter = true)
         data class Image(
             @Json(name = "path")
             val path: String,

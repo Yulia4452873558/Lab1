@@ -24,18 +24,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.marvel.R
 import com.example.marvel.mock.getMockHeroes
 import com.example.marvel.domain.model.Hero
-import com.example.marvel.presentation.screens.start.StartViewModel
 import com.example.marvel.presentation.theme.MarvelTheme
 import com.example.marvel.presentation.theme.Spaces
 
 @Composable
 fun MainScreen(item: Hero, onBackClick: () -> Unit) {
-    val viewModel = viewModel<StartViewModel>()
 
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(

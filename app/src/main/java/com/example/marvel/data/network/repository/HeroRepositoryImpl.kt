@@ -1,7 +1,5 @@
 package com.example.marvel.data.network.repository
 
-import android.util.Log
-import com.example.marvel.data.network.api.HeroResponse
 import com.example.marvel.data.network.api.MarvelApi
 import com.example.marvel.data.network.characters.CharacterRoot
 
@@ -18,7 +16,6 @@ class HeroRepositoryImpl constructor(
 
     override suspend fun getAllHeroes(): CharacterRoot {
         val response = marvelApi.getSuperheroes()
-        Log.d("tag",response.toString())
         return response
     }
 }

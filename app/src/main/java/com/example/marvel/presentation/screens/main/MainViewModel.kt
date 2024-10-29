@@ -2,8 +2,6 @@ package com.example.marvel.presentation.screens.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvel.data.network.repository.HeroRepositoryImpl
-import com.example.marvel.data.network.repository.HeroRepository
 import com.example.marvel.data.network.storage.HeroStorage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -3,7 +3,7 @@ package com.example.marvel.data.network.useCase
 import com.example.marvel.data.network.repository.HeroRepository
 import com.example.marvel.domain.model.Hero
 
-class GetHeroByIdUseCase (
+class GetHeroByIdUseCase(
     private val heroRepository: HeroRepository
 ) {
     suspend fun execute(id: Int): Hero {

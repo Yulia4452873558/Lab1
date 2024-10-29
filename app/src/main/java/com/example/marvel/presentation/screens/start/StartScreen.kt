@@ -1,5 +1,6 @@
 package com.example.marvel.presentation.screens.start
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -7,13 +8,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,41 +22,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.marvel.R
-import com.example.marvel.data.network.marvelEngine
-import com.example.marvel.data.network.repository.HeroRepositoryImpl
-import com.example.marvel.data.network.storage.HeroStorage
-import com.example.marvel.data.network.useCase.GetHeroByIdUseCase
-import com.example.marvel.data.network.useCase.GetHeroesUseCase
-import com.example.marvel.mock.getMockHeroes
 import com.example.marvel.domain.model.Hero
+import com.example.marvel.mock.startScreenViewModel
 import com.example.marvel.presentation.screens.start.components.Header
 import com.example.marvel.presentation.screens.start.components.HeroSlider
-import com.example.marvel.presentation.screens.start.store.StartState
 import com.example.marvel.presentation.theme.MarvelTheme
 
 @Composable
 fun StartScreen(
     onHeroClick: (Hero) -> Unit = {},
-    navController: NavController
+    viewModel: StartViewModel
 ) {
 
-    val viewModel: StartViewModel = StartViewModel(
-        heroStorage = HeroStorage(
-            getHeroesUseCase = GetHeroesUseCase(heroRepository = HeroRepositoryImpl(marvelApi = marvelEngine())),
-            getHeroByIdUseCase = GetHeroByIdUseCase(heroRepository = HeroRepositoryImpl(marvelApi = marvelEngine()))
-        )
-    )
-    val state by viewModel.stateFlow.collectAsState()
+    val state = viewModel.heroStateFlow.collectAsState().value
 
     val heroBackColor = remember {
         mutableStateOf(Color.White)
-    }
-    LaunchedEffect(Unit) {
-        viewModel.getAllHeroes()
     }
     Box(modifier = Modifier.fillMaxSize()) {
         Icon(
@@ -70,7 +52,8 @@ fun StartScreen(
         )
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(27.dp))
@@ -80,8 +63,9 @@ fun StartScreen(
                     CircularProgressIndicator()
                 }
             } else {
+                Spacer(modifier = Modifier.height(20.dp))
                 HeroSlider(
-                    list = state.heroes!!,
+                    list = state.heroes,
                     onHeroClick = onHeroClick,
                     onScroll = { color ->
                         heroBackColor.value = color
@@ -92,13 +76,14 @@ fun StartScreen(
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 private fun StartScreenPreview() {
     MarvelTheme {
-        Surface {
+        Scaffold {
             StartScreen(
-                navController = rememberNavController()
+                viewModel = startScreenViewModel, onHeroClick = {}
             )
         }
     }

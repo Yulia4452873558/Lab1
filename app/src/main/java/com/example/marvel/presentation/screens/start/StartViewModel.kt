@@ -2,27 +2,32 @@ package com.example.marvel.presentation.screens.start
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.marvel.data.network.repository.HeroRepositoryImpl
-import com.example.marvel.data.network.repository.HeroRepository
 import com.example.marvel.data.network.storage.HeroStorage
 import com.example.marvel.presentation.screens.start.store.StartState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class StartViewModel(
     private val heroStorage: HeroStorage
 ) : ViewModel() {
-    private val heroStateFlow = MutableStateFlow(StartState(emptyList()))
-    val stateFlow: StateFlow<StartState> = heroStateFlow
+    val heroStateFlow = MutableStateFlow(StartState())
+    private val supervisorIoCoroutineContext = SupervisorJob() + Dispatchers.IO
 
-    fun getAllHeroes() {
-        viewModelScope.launch {
+    init {
+        getAllHeroes()
+    }
+
+    private fun getAllHeroes() {
+        viewModelScope.launch(supervisorIoCoroutineContext) {
             val allHeroes = heroStorage.getAllHeroes()
-            heroStateFlow.update {
-                it.copy(heroes = allHeroes)
+            withContext(viewModelScope.coroutineContext) {
+                heroStateFlow.update {
+                    it.copy(heroes = allHeroes)
+                }
             }
         }
     }

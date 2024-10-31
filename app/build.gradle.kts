@@ -78,6 +78,9 @@ dependencies {
     //    Retrofit
     implementation(libs.retrofit)
 
+    //Compose Material Icons
+    implementation(libs.compose.icons)
+
     //    Moshi
     implementation(libs.moshi)
     implementation(libs.converter.moshi)

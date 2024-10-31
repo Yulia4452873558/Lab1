@@ -16,4 +16,7 @@
 
     <string name="back_button">Back arrow icon</string>
     <string name="hero_back">hero background</string>
+    <string name="connection_error">Connection error</string>
+    <string name="error_sub">There is no internet connection. Check the network and try the connection again.</string>
+    <string name="click_repeat">Repeat again</string>
 </resources>

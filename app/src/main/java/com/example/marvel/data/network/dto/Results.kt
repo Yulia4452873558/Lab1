@@ -1,5 +1,7 @@
 package com.example.marvel.data.network.dto
 
+import com.example.marvel.data.dao.SuperheroEntity
+import com.example.marvel.presentation.utils.getImageUrl
 import com.squareup.moshi.Json
 
 data class Results(
@@ -14,4 +16,15 @@ data class Results(
     @Json(name = "stories") var stories: Stories? = Stories(),
     @Json(name = "events") var events: Events? = Events(),
     @Json(name = "urls") var urls: List<Urls> = listOf()
-)
+) {
+    companion object {
+        fun Results.toSuperheroEntity(): SuperheroEntity {
+            return SuperheroEntity(
+                id = 0,
+                name = this.name.toString(),
+                description = this.description.toString(),
+                imageUrl = getImageUrl(this.thumbnail)
+            )
+        }
+    }
+}

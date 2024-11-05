@@ -1,25 +1,48 @@
 package com.example.marvel.data.network.useCase
 
+import android.content.Context
+import com.example.marvel.data.dao.SuperheroDao
+import com.example.marvel.data.dao.SuperheroEntity
 import com.example.marvel.data.network.repository.HeroRepository
 import com.example.marvel.domain.model.Hero
+import com.example.marvel.presentation.utils.ConnectionStatus
+import com.example.marvel.presentation.utils.getCurrentConnectivityStatus
 
 class GetHeroesUseCase(
-    private val heroRepository: HeroRepository
+    private val heroRepository: HeroRepository,
+    private val dao: SuperheroDao,
+    private val context: Context
 ) {
-    suspend fun execute(): List<Hero>? {
-        val heroResponse = heroRepository.getAllHeroes().data?.results
-        return heroResponse?.map {
+    suspend fun execute(): List<Hero> {
 
-            val imagePath = if (it.thumbnail?.path?.startsWith("http://")!!) {
-                it.thumbnail?.path?.replace("http", "https")
-            } else {
-                it.thumbnail?.path
-            } + "." + it.thumbnail?.extension
 
+        if (getCurrentConnectivityStatus(context = context) === ConnectionStatus.Available) {
+            val heroResponse = heroRepository.getAllHeroes().data?.results
+
+            dao.deleteAllData()
+
+            heroResponse?.map {
+                val imagePath = if (it.thumbnail?.path?.startsWith("http://")!!) {
+                    it.thumbnail?.path?.replace("http", "https")
+                } else {
+                    it.thumbnail?.path
+                } + "." + it.thumbnail?.extension
+
+                SuperheroEntity(
+                    id = 0,
+                    name = it.name.toString(),
+                    description = it.description.toString(),
+                    imageUrl = imagePath
+                )
+            }?.toTypedArray()?.let {
+                dao.upsertData(superheroEntity = it)
+            }
+        }
+        return dao.getAllHeroes().map {
             Hero(
-                heroNameResId = it.name ?: "",
-                heroDescriptionResId = it.description ?: "Hello",
-                heroImageResId = imagePath,
+                heroNameResId = it.name,
+                heroDescriptionResId = it.description,
+                heroImageResId = it.imageUrl,
                 heroColor = Hero.generateColor()
             )
         }

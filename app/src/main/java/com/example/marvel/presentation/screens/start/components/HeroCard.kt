@@ -4,9 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -21,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.example.marvel.R
 import com.example.marvel.mock.getMockHeroes
-import com.example.marvel.model.Hero
+import com.example.marvel.domain.model.Hero
 import com.example.marvel.presentation.theme.MarvelTheme
 import com.example.marvel.presentation.theme.Sizes
 import com.example.marvel.presentation.theme.Spaces
@@ -30,8 +29,7 @@ import com.example.marvel.presentation.theme.Spaces
 fun HeroCard(item: Hero, onHeroClick: (Hero) -> Unit = {}) {
     Button(
         modifier = Modifier
-            .width(width = Sizes.HeroCard.width)
-            .height(height = Sizes.HeroCard.height),
+            .size(width = Sizes.HeroCard.width, height = Sizes.HeroCard.height),
         shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(all = Sizes.HeroCard.allPadding),
         onClick = {
@@ -42,20 +40,18 @@ fun HeroCard(item: Hero, onHeroClick: (Hero) -> Unit = {}) {
             AsyncImage(
                 model = item.heroImageResId,
                 modifier = Modifier
-                    .fillMaxSize()
                     .align(Alignment.Center)
+                    .fillMaxSize()
                     .background(MaterialTheme.colorScheme.onBackground),
                 contentScale = ContentScale.Crop,
-                contentDescription = "${stringResource(id = R.string.hero_image)} ${
-                    stringResource(id = item.heroNameResId)
-                }"
+                contentDescription = stringResource(id = R.string.hero_image)
             )
             Text(
                 modifier = Modifier
                     .wrapContentSize()
                     .align(alignment = Alignment.BottomStart)
                     .padding(all = Spaces.heroNamePadding),
-                text = stringResource(id = item.heroNameResId),
+                text = item.heroNameResId,
                 style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
             )
         }

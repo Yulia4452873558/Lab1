@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -73,4 +74,18 @@ dependencies {
 
     //    Coil
     implementation(libs.coil.compose)
+
+    //    Retrofit
+    implementation(libs.retrofit)
+
+    //Compose Material Icons
+    implementation(libs.compose.icons)
+
+    //    Moshi
+    implementation(libs.moshi)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
+    kapt(libs.moshi.kotlin.codegen)
+
+
 }

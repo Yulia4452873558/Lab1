@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.marvel.navigation.AppNavigation
+import com.example.marvel.presentation.navigation.AppNavigation
 import com.example.marvel.presentation.theme.MarvelTheme
 
 class MainActivity : ComponentActivity() {

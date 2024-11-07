@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.marvel.model.Hero
+import com.example.marvel.domain.model.Hero
 
 
 @Composable

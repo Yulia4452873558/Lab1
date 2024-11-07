@@ -16,4 +16,7 @@
 
     <string name="back_button">Иконка стрелки назад</string>
     <string name="hero_back">задний фон героя</string>
+    <string name="connection_error">Ошибка соединения</string>
+    <string name="error_sub">Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.</string>
+    <string name="click_repeat">Повторить снова</string>
 </resources>

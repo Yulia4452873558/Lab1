@@ -31,23 +31,21 @@ fun ConnectionErrorScreen(
     screen: String
 ) {
     val context = LocalContext.current
-    Scaffold {
-        onNetworkIntent(ConnectionErrorIntent.ClickRepeat(value = screen))
 
-        LaunchedEffect(key1 = Unit) {
-            networkErrorEffect.collect { effect ->
-                when (effect) {
-                    is ConnectionErrorEffect.ClickRepeat -> {
-                        val isConnected =
-                            getCurrentConnectivityStatus(context = context) === ConnectionStatus.Available
-                        if (isConnected) {
-                            navHostController.navigate(route = screen)
-                        }
+    LaunchedEffect(key1 = Unit) {
+        networkErrorEffect.collect { effect ->
+            when (effect) {
+                is ConnectionErrorEffect.ClickRepeat -> {
+                    val isConnected =
+                        getCurrentConnectivityStatus(context = context) === ConnectionStatus.Available
+                    if (isConnected) {
+                        navHostController.navigate(route = screen)
                     }
                 }
             }
         }
-
+    }
+    Scaffold {
         Column(
             Modifier
                 .fillMaxSize()

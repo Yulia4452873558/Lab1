@@ -59,6 +59,37 @@ fun NavGraph(navHostController: NavHostController, selectedHero: MutableState<He
                     navHostController.navigate(route = Screens.FULL_SCREEN)
                 }
             )
+            if (isConnected) {
+
+                val viewModel = StartViewModel(
+                    heroStorage = HeroStorage(
+                        getHeroesUseCase = GetHeroesUseCase(
+                            heroRepository = HeroRepositoryImpl(
+                                marvelApi = marvelEngine()
+                            )
+                        ),
+                        getHeroByIdUseCase = GetHeroByIdUseCase(
+                            heroRepository = HeroRepositoryImpl(
+                                marvelApi = marvelEngine()
+                            )
+                        )
+                    )
+                )
+
+                StartScreen(
+                    viewModel = viewModel,
+                    onHeroClick = { hero ->
+                        selectedHero.value = hero
+                        navHostController.navigate(route = Screens.FULL_SCREEN)
+                    }
+                )
+            } else {
+                navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                    "screen",
+                    Screens.START_SCREEN
+                )
+                navHostController.navigate(route = "${Screens.NO_INTERNET_SCREEN}/${Screens.START_SCREEN}")
+            }
         }
         composable(route = Screens.FULL_SCREEN) {
             val isConnected =
@@ -69,6 +100,20 @@ fun NavGraph(navHostController: NavHostController, selectedHero: MutableState<He
                     navHostController.navigateUp()
                 }
             )
+            if (isConnected) {
+                MainScreen(
+                    item = selectedHero.value,
+                    onBackClick = {
+                        navHostController.navigateUp()
+                    }
+                )
+            } else {
+                navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                    "screen",
+                    Screens.FULL_SCREEN
+                )
+                navHostController.navigate(route = "${Screens.NO_INTERNET_SCREEN}/${Screens.FULL_SCREEN}")
+            }
         }
 
         composable(

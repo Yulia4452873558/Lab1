@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.marvel.data.dao.provideDatabase
 import com.example.marvel.data.network.marvelEngine
 import com.example.marvel.data.network.repository.HeroRepositoryImpl
 import com.example.marvel.data.network.storage.HeroStorage
@@ -34,55 +35,40 @@ fun NavGraph(navHostController: NavHostController, selectedHero: MutableState<He
         composable(route = Screens.START_SCREEN) {
             val isConnected =
                 checkInternet(connection = getCurrentConnectivityStatus(context = context))
-            if (isConnected) {
-
-                val viewModel = StartViewModel(
-                    heroStorage = HeroStorage(
-                        getHeroesUseCase = GetHeroesUseCase(
-                            heroRepository = HeroRepositoryImpl(
-                                marvelApi = marvelEngine()
-                            )
-                        ),
-                        getHeroByIdUseCase = GetHeroByIdUseCase(
-                            heroRepository = HeroRepositoryImpl(
-                                marvelApi = marvelEngine()
-                            )
+            val viewModel = StartViewModel(
+                heroStorage = HeroStorage(
+                    getHeroesUseCase = GetHeroesUseCase(
+                        dao = provideDatabase(context = context).getSuperheroesDao(),
+                        context = context,
+                        heroRepository = HeroRepositoryImpl(
+                            marvelApi = marvelEngine()
+                        )
+                    ),
+                    getHeroByIdUseCase = GetHeroByIdUseCase(
+                        heroRepository = HeroRepositoryImpl(
+                            marvelApi = marvelEngine()
                         )
                     )
                 )
+            )
 
-                StartScreen(
-                    viewModel = viewModel,
-                    onHeroClick = { hero ->
-                        selectedHero.value = hero
-                        navHostController.navigate(route = Screens.FULL_SCREEN)
-                    }
-                )
-            } else {
-                navHostController.previousBackStackEntry?.savedStateHandle?.set(
-                    "screen",
-                    Screens.START_SCREEN
-                )
-                navHostController.navigate(route = "${Screens.NO_INTERNET_SCREEN}/${Screens.START_SCREEN}")
-            }
+            StartScreen(
+                viewModel = viewModel,
+                onHeroClick = { hero ->
+                    selectedHero.value = hero
+                    navHostController.navigate(route = Screens.FULL_SCREEN)
+                }
+            )
         }
         composable(route = Screens.FULL_SCREEN) {
             val isConnected =
                 checkInternet(connection = getCurrentConnectivityStatus(context = context))
-            if (isConnected) {
-                MainScreen(
-                    item = selectedHero.value,
-                    onBackClick = {
-                        navHostController.navigateUp()
-                    }
-                )
-            } else {
-                navHostController.previousBackStackEntry?.savedStateHandle?.set(
-                    "screen",
-                    Screens.FULL_SCREEN
-                )
-                navHostController.navigate(route = "${Screens.NO_INTERNET_SCREEN}/${Screens.FULL_SCREEN}")
-            }
+            MainScreen(
+                item = selectedHero.value,
+                onBackClick = {
+                    navHostController.navigateUp()
+                }
+            )
         }
 
         composable(

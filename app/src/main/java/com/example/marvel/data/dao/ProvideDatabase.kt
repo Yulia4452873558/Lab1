@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 
 
-fun provideDatabase(context: Context): AppDatabase {
+fun database(context: Context): AppDatabase {
     return Room
         .databaseBuilder(context, AppDatabase::class.java, "character")
         .build()

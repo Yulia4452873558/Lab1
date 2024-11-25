@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.dagger.hilt.android")
     kotlin("kapt")
+
 }
 
 android {
@@ -87,5 +89,12 @@ dependencies {
     implementation(libs.moshi.kotlin)
     kapt(libs.moshi.kotlin.codegen)
 
+    //room
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
 
+    //dagger-Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
 }

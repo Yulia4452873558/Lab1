@@ -3,7 +3,7 @@ package com.example.marvel.data.network.repository
 import com.example.marvel.data.network.api.MarvelApi
 import com.example.marvel.data.network.dto.HeroResponse
 
-class HeroRepositoryImpl constructor(
+class HeroRepositoryImpl(
     private val marvelApi: MarvelApi
 ) : HeroRepository {
 

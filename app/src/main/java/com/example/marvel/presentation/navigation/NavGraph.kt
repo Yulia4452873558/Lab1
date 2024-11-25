@@ -3,19 +3,16 @@ package com.example.marvel.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.marvel.data.network.marvelEngine
-import com.example.marvel.data.network.repository.HeroRepositoryImpl
-import com.example.marvel.data.network.storage.HeroStorage
-import com.example.marvel.data.network.useCase.GetHeroByIdUseCase
-import com.example.marvel.data.network.useCase.GetHeroesUseCase
 import com.example.marvel.domain.model.Hero
 import com.example.marvel.presentation.Screens
 import com.example.marvel.presentation.screens.main.MainScreen
+import com.example.marvel.presentation.screens.main.MainViewModel
 import com.example.marvel.presentation.screens.network_error.ConnectionErrorScreen
 import com.example.marvel.presentation.screens.network_error.ConnectionErrorViewModel
 import com.example.marvel.presentation.screens.start.StartScreen
@@ -34,55 +31,27 @@ fun NavGraph(navHostController: NavHostController, selectedHero: MutableState<He
         composable(route = Screens.START_SCREEN) {
             val isConnected =
                 checkInternet(connection = getCurrentConnectivityStatus(context = context))
-            if (isConnected) {
+            val viewModel = hiltViewModel<StartViewModel>()
 
-                val viewModel = StartViewModel(
-                    heroStorage = HeroStorage(
-                        getHeroesUseCase = GetHeroesUseCase(
-                            heroRepository = HeroRepositoryImpl(
-                                marvelApi = marvelEngine()
-                            )
-                        ),
-                        getHeroByIdUseCase = GetHeroByIdUseCase(
-                            heroRepository = HeroRepositoryImpl(
-                                marvelApi = marvelEngine()
-                            )
-                        )
-                    )
-                )
-
-                StartScreen(
-                    viewModel = viewModel,
-                    onHeroClick = { hero ->
-                        selectedHero.value = hero
-                        navHostController.navigate(route = Screens.FULL_SCREEN)
-                    }
-                )
-            } else {
-                navHostController.previousBackStackEntry?.savedStateHandle?.set(
-                    "screen",
-                    Screens.START_SCREEN
-                )
-                navHostController.navigate(route = "${Screens.NO_INTERNET_SCREEN}/${Screens.START_SCREEN}")
-            }
+            StartScreen(
+                viewModel = viewModel,
+                onHeroClick = { hero ->
+                    selectedHero.value = hero
+                    navHostController.navigate(route = Screens.FULL_SCREEN)
+                }
+            )
         }
         composable(route = Screens.FULL_SCREEN) {
             val isConnected =
                 checkInternet(connection = getCurrentConnectivityStatus(context = context))
-            if (isConnected) {
-                MainScreen(
-                    item = selectedHero.value,
-                    onBackClick = {
-                        navHostController.navigateUp()
-                    }
-                )
-            } else {
-                navHostController.previousBackStackEntry?.savedStateHandle?.set(
-                    "screen",
-                    Screens.FULL_SCREEN
-                )
-                navHostController.navigate(route = "${Screens.NO_INTERNET_SCREEN}/${Screens.FULL_SCREEN}")
-            }
+            val viewModel = hiltViewModel<MainViewModel>()
+
+            MainScreen(
+                item = selectedHero.value,
+                onBackClick = {
+                    navHostController.navigateUp()
+                }
+            )
         }
 
         composable(
